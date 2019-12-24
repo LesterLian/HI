@@ -1,0 +1,8 @@
+Rails.application.routes.draw do
+  resources :items
+  resources :storages
+  resources :tags
+  # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
+  root 'items#index'
+  get '/public/:page' => 'application#access_public'
+end

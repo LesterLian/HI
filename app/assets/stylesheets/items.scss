@@ -1,0 +1,14 @@
+// Place all the styles related to the Items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.file_button {
+  border: 1px solid #ddd;
+  margin-top: -1px; /* Prevent double borders */
+  background-color: #f6f6f6;
+  width: fit-content;
+}
+
+.thumbnail {
+  max-height: 100px;
+  max-width: 100%;
+}

@@ -1,0 +1,140 @@
+<%= form_with(model: item, local: true) do |form| %>
+  <% if item.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
+
+      <ul>
+        <% item.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= form.label :count %>
+    <%= form.number_field :count %>
+  </div>
+
+  <div class="field">
+    <%= form.label :price %>
+    <%= form.number_field :price %>
+  </div>
+
+  <div class="field">
+    <%= form.label 'choose_image', class: 'file_button' %>
+    <a id='file_label'>No file chosen...</a>
+    <%= form.hidden_field :image %>
+    <%= form.file_field 'choose_image', accept: "image/*", capture: "camera", style: 'display: none' %>
+  </div>
+
+  <div class="field">
+    <a>Storage (Choose One)</a>
+    <ul class="treeUL">
+      <% if Storage.top_level.length == 0 %>
+        <% # TODO pokayoke storage creation alert %>
+      <% end %>
+      <% Storage.top_level.each do |root| %>
+        <%= render :partial => "shared/nested_list",
+          :locals => {:type => :radio, :name => :storage_id, :form => form, :node => root} %>
+      <% end %>
+    </ul>
+    <%= link_to 'New Storage', new_storage_path %>
+  </div>
+
+  <div class="field">
+    <a>Tags (Miltiple Selection)</a>
+    <ul class="treeUL">
+      <% if Tag.top_level.length == 0 %>
+        <% # TODO pokayoke storage creation alert %>
+      <% end %>
+      <% Tag.top_level.each do |root| %>
+        <%= render :partial => "shared/nested_list",
+          :locals => {:type => :checkbox, :name => :tags, :form => form, :node => root} %>
+      <% end %>
+    </ul>
+    <%= link_to 'New Tag', new_tag_path %>
+  </div>
+
+  <div class="field" style="display: none">
+    <%= form.label :time_in %>
+    <%= form.datetime_select :time_in %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+
+  <script>
+  <!-- "caret click event" -->
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.parentElement.querySelector(".nested")
+        .classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+
+  <!-- "search" -->
+  function tree_search() {
+      var input, filter, lis, item, i;
+      input = document.getElementById("search_input");
+      filter = input.value.toUpperCase();
+      lis = document.querySelectorAll(".treeUL li");
+      for (i = 0; i < lis.length; i++) {
+          item = lis[i].getElementsByTagName('span')[0] || lis[i];
+          if (item.textContent.toUpperCase().indexOf(filter) > -1) {
+              item.style.display = "";
+          } else {
+              item.style.display = "none";
+          }
+      }
+  };
+
+  <!-- "resize image" -->
+  const canvas_size = 600;
+  var hidden = document.querySelector('#item_image')
+  var label = document.querySelector('#file_label')
+  document.querySelector('input[type=file]').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+
+    if(file.type.match(/image.*/)) {
+      console.log('An image has been loaded');
+
+      // Load the image
+      var reader = new FileReader();
+      reader.onload = function (readerEvent) {
+        var image = new Image();
+        image.onload = function (imageEvent) {
+          console.log('image event')
+          // Resize the image
+          var canvas = document.createElement('canvas'),
+              size = Math.min(image.width, image.height)
+          canvas.width = canvas_size;
+          canvas.height = canvas_size;
+          // TODO device check
+          canvas.getContext('2d').rotate(Math.PI/2);
+          canvas.getContext('2d').drawImage(image, 0, 0, size, size, //crop
+            0, -canvas_size, canvas_size, canvas_size); //resize
+
+          console.log(canvas.toDataURL('image/jpeg'))
+          hidden.value = canvas.toDataURL('image/jpeg');
+          e.target.value = '';
+          label.textContent = file.name
+        }
+        image.src = readerEvent.target.result;
+      }
+      reader.readAsDataURL(file);
+    }
+  });
+  </script>
+<% end %>

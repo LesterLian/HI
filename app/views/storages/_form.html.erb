@@ -1,0 +1,64 @@
+<%= form_with(model: storage, local: true) do |form| %>
+  <% if storage.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(storage.errors.count, "error") %> prohibited this storage from being saved:</h2>
+
+      <ul>
+        <% storage.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+  </div>
+
+  <div class="field">
+    <a>Parent (Choose One)</a>
+    <ul class="treeUL">
+      <% Storage.top_level.each do |root| %>
+        <%= render :partial => "shared/nested_list",
+          :locals => {:type => :radio, :name => :parent_id, :form => form, :node => root} %>
+      <% end %>
+    </ul>
+    <input type="button" value="Reset"
+      onclick="document.querySelector('input[type=radio]:checked').checked=false">
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+
+  <script>
+  <!-- "caret click event" -->
+  var toggler = document.getElementsByClassName("caret");
+  var i;
+
+  for (i = 0; i < toggler.length; i++) {
+    toggler[i].addEventListener("click", function() {
+      this.parentElement.parentElement.querySelector(".nested")
+        .classList.toggle("active");
+      this.classList.toggle("caret-down");
+    });
+  }
+
+  <!-- "search" -->
+  function tree_search() {
+      var input, filter, lis, item, i;
+      input = document.getElementById("search_input");
+      filter = input.value.toUpperCase();
+      lis = document.querySelectorAll(".treeUL li");
+      for (i = 0; i < lis.length; i++) {
+          item = lis[i].getElementsByTagName('span')[0] || lis[i];
+          if (item.textContent.toUpperCase().indexOf(filter) > -1) {
+              item.style.display = "";
+          } else {
+              item.style.display = "none";
+          }
+      }
+  };
+  </script>
+<% end %>

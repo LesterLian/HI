@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @item.name %>
+</p>
+
+<p>
+  <strong>Count:</strong>
+  <%= @item.count %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @item.price %>
+</p>
+
+<p>
+  <strong>Storage:</strong>
+  <%= @item.storage.name %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <% @item.tags.each do |tag| %>
+    <%= tag.name %>
+  <% end %>
+</p>
+
+<% if @item.image.attached? %>
+  <img src="<%= url_for @item.image %>">
+<% end %>
+
+<p>
+  <strong>Time in:</strong>
+  <%= @item.time_in %>
+</p>
+
+<p>
+  <strong>Time out:</strong>
+  <%= @item.time_out %>
+</p>
+
+<%= link_to 'Edit', edit_item_path(@item) %> |
+<%= link_to 'Back', items_path %>
