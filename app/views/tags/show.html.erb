@@ -10,6 +10,13 @@
   <%= @tag.parent ? @tag.parent.name : '' %>
 </p>
 
-<%= link_to 'Edit', edit_tag_path(@tag) %> |
-<%= link_to 'Back', tags_path %> |
-<%= link_to 'Duplicate', new_tag_path(@tag) %>
+<p>
+  <%= link_to 'Edit', edit_tag_path(@tag) %> |
+  <%= link_to 'Back', tags_path %> |
+  <%= link_to 'Duplicate', new_tag_path(@tag) %>
+</p>
+
+<strong>Items Associated:</strong>
+<% @tag.items.each do |item| %>
+  <p><%= item.name %></p>
+<% end %>
