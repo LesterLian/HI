@@ -29,7 +29,7 @@
   <div class="field">
     <%= form.label 'choose_image', class: 'file_button' %>
     <a id='file_label'>No file chosen...</a>
-    <%= form.hidden_field :image %>
+    <%= form.hidden_field :image, value: '' %>
     <%= form.file_field 'choose_image', accept: "image/*", capture: "camera", style: 'display: none' %>
   </div>
 

@@ -13,9 +13,12 @@
  *= require_tree .
  *= require_self
  */
- .treeUL, .nested{
+
+/* Nested tree */
+.treeUL, .nested{
   list-style-type: none;
 }
+
 .treeUL {
   margin: 0;
   padding: 0;
@@ -36,6 +39,14 @@
 
 .treeUL input[type=checkbox]:checked + label, input[type=radio]:checked + label {
   background-color: #ddd;
+}
+
+.nested {
+  display: none;
+}
+
+.active {
+  display: block;
 }
 
 .caret {
@@ -59,10 +70,29 @@
   transform: rotate(90deg);
 }
 
-.nested {
-  display: none;
+/* Link */
+.link_button {
+  background-color: #f9cd9d;
+  padding: 2px 4px;
+  font-size: large;
+  text-decoration: none;
+  text-align: center;
+  cursor: pointer;
 }
 
-.active {
-  display: block;
+.mutable_link {
+  display: none
+}
+
+/* Text */
+.large-text {
+  font-size: large;
+  text-decoration: none;
+  text-align: center;
+}
+
+.large-text td {
+  font-size: large;
+  text-decoration: none;
+  text-align: center;
 }

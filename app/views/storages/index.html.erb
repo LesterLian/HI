@@ -2,28 +2,63 @@
 
 <h1>Storages</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Parent</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<%= form_with(model: @top_levels.first, local: true) do |form| %>
+<ul class="treeUL">
+  <% @top_levels.each do |root| %>
+    <%= render :partial => "shared/nested_list",
+      :locals => {:type => :radio, :name => :parent_id, :form => form, :node => root} %>
+  <% end %>
+</ul>
+<% end %>
 
-  <tbody>
-    <% @storages.each do |storage| %>
-      <tr>
-        <td><%= storage.name %></td>
-        <td><%= storage.parent ? storage.parent.name : '' %></td>
-        <td><%= link_to 'Show', storage %></td>
-        <td><%= link_to 'Edit', edit_storage_path(storage) %></td>
-        <td><%= link_to 'Destroy', storage, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<p>
+  <%= link_to 'Show', storage_path('0'), class: 'mutable_link link_button' %>
+  <%= link_to 'Edit', edit_storage_path('0'), class: 'mutable_link link_button' %>
+  <%= link_to 'Destroy', storage_path('0'), class: 'mutable_link link_button', method: :delete, data: { confirm: 'Are you sure?' } %>
+</p>
 
-<br>
+<p><%= link_to 'New Storage', new_storage_path, class: 'link_button' %></p>
 
-<%= link_to 'New Storage', new_storage_path %>
+<script>
+<!-- "Change link for selected item" -->
+var links = document.querySelectorAll('.mutable_link');
+document.querySelector('form').addEventListener('input', function(e) {
+  links.forEach(function(link) {
+    strs = link.href.split('/');
+    link.idx ? null : link.idx = strs.indexOf('0');
+    strs[link.idx] = e.srcElement.value;
+    link.href = strs.join('/');
+    // link.style.display = ''
+    link.classList.remove('mutable_link');
+  });
+
+});
+
+<!-- "caret click event" -->
+var toggler = document.getElementsByClassName("caret");
+var i;
+
+for (i = 0; i < toggler.length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.parentElement.querySelector(".nested")
+      .classList.toggle("active");
+    this.classList.toggle("caret-down");
+  });
+}
+
+<!-- "search" -->
+function tree_search() {
+    var input, filter, lis, item, i;
+    input = document.getElementById("search_input");
+    filter = input.value.toUpperCase();
+    lis = document.querySelectorAll(".treeUL li");
+    for (i = 0; i < lis.length; i++) {
+        item = lis[i].getElementsByTagName('span')[0] || lis[i];
+        if (item.textContent.toUpperCase().indexOf(filter) > -1) {
+            item.style.display = "";
+        } else {
+            item.style.display = "none";
+        }
+    }
+};
+</script>

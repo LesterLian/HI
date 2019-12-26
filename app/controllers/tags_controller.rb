@@ -4,7 +4,8 @@ class TagsController < ApplicationController
   # GET /tags
   # GET /tags.json
   def index
-    @tags = Tag.all
+    # @tags = Tag.all
+    @top_levels = Tag.top_level
   end
 
   # GET /tags/1

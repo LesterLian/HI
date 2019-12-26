@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Home Inventory</h1>
+
+<table class='large-text'>
+  <thead>
+    <tr>
+      <th><%= link_to 'Items', items_path %></th>
+      <th><%= link_to 'Storages', storages_path %></th>
+      <th><%= link_to 'Tags', tags_path %></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><%= Item.count %></td>
+      <td><%= Storage.count %></td>
+      <td><%= Tag.count %></td>
+    </tr>
+    <tr>
+      <% [Item,Storage,Tag].each do |c| %>
+        <td>
+          <% c.last(5).each do |ele| %>
+            <div><%= ele.name %></div>
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+    <tr>
+      <td><%= link_to 'New Item', new_item_path, class: 'link_button' %></td>
+      <td><%= link_to 'New Storage', new_storage_path, class: 'link_button' %></td>
+      <td><%= link_to 'New Tag', new_tag_path, class: 'link_button' %></td>
+    </tr>
+  </tbody>
+</table>

@@ -29,10 +29,12 @@ class ItemsController < ApplicationController
       tmp_params[:tags].map! {|tag| Tag.find(tag)}
     end
     @item = Item.new(tmp_params)
-    @item.image.attach(data: params[:item][:image])
-    puts "here"
-    puts tmp_params[:image]
-    puts "here"
+    if params[:item][:image] =~ /data:image\/\w+;base64,.+/
+      @item.image.attach(data: params[:item][:image])
+    end
+    # puts "here"
+    # puts tmp_params[:image]
+    # puts "here"
 
     respond_to do |format|
       if @item.save

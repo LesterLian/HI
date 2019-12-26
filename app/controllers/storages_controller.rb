@@ -4,7 +4,8 @@ class StoragesController < ApplicationController
   # GET /storages
   # GET /storages.json
   def index
-    @storages = Storage.all
+    # @storages = Storage.all
+    @top_levels = Storage.top_level
   end
 
   # GET /storages/1

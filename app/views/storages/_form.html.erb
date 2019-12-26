@@ -1,4 +1,5 @@
 <%= form_with(model: storage, local: true) do |form| %>
+  <% storage = Storage.find(params[:format]) if params[:format] %>
   <% if storage.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(storage.errors.count, "error") %> prohibited this storage from being saved:</h2>
@@ -13,19 +14,25 @@
 
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, autofocus: true %>
   </div>
 
   <div class="field">
-    <a>Parent (Choose One)</a>
-    <ul class="treeUL">
-      <% Storage.top_level.each do |root| %>
-        <%= render :partial => "shared/nested_list",
-          :locals => {:type => :radio, :name => :parent_id, :form => form, :node => root} %>
-      <% end %>
-    </ul>
-    <input type="button" value="Reset"
-      onclick="document.querySelector('input[type=radio]:checked').checked=false">
+    <p>Parent (Choose One)</p>
+    <% if params[:format] %>
+      <p><%= storage.parent ? storage.parent.name : '' %></p>
+      <%= form.hidden_field :parent_id, value: storage[:parent_id] %>
+    <% else %>
+      <input type="text" id="search_input" onkeyup="tree_search()" placeholder="Search for ...">
+      <ul class="treeUL">
+        <% Storage.top_level.each do |root| %>
+          <%= render :partial => "shared/nested_list",
+            :locals => {:type => :radio, :name => :parent_id, :form => form, :node => root} %>
+        <% end %>
+      </ul>
+      <input type="button" value="Reset"
+        onclick="document.querySelector('input[type=radio]:checked').checked=false">
+    <% end %>
   </div>
 
   <div class="actions">
@@ -46,17 +53,25 @@
   }
 
   <!-- "search" -->
+  var labels = document.querySelectorAll(".treeUL li label");
   function tree_search() {
       var input, filter, lis, item, i;
       input = document.getElementById("search_input");
       filter = input.value.toUpperCase();
-      lis = document.querySelectorAll(".treeUL li");
-      for (i = 0; i < lis.length; i++) {
-          item = lis[i].getElementsByTagName('span')[0] || lis[i];
-          if (item.textContent.toUpperCase().indexOf(filter) > -1) {
-              item.style.display = "";
+
+      for (i = 0; i < labels.length; i++) {
+          item = labels[i];
+          if (item.children.length) {
+            item.parentElement.getElementsByTagName('ul')[0].classList.add('active')
+            // item.parentElement.querySelector(".nested").classList.remove("active");
+            // item.querySelector(".caret").classList.remove("caret-down");
           } else {
+            if (item.textContent.toUpperCase().indexOf(filter) > -1) {
+              item.style.display = "";
+              // item.dispatchEvent(new Event('match', {bubbles: true}))
+            } else {
               item.style.display = "none";
+            }
           }
       }
   };
