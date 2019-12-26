@@ -1,0 +1,27 @@
+<% builder = -> (*args) { %>
+  <% if type == :checkbox %>
+    <% form.check_box args[0], { :multiple => true, id: "#{form.object_name}_#{args[0]}_#{args[1]}" }, args[1], nil %>
+  <% else %>
+    <% form.radio_button *args %>
+  <% end %>
+<% } %>
+
+<% if node.children.length > 0 %>
+  <li class='nested'>
+  <%= builder.call name, node.id %>
+  <%= form.label "#{name}_#{node.id}" do %>
+    <span class="caret"><%= node.name%></span>
+  <% end %>
+  <ul>
+    <% node.children.each do |child|%>
+      <%= render :partial => "shared/nested_tree", :locals => {:type => type, :name => name, :form => form, :node => child} %>
+    <% end %>
+  </ul>
+<% else %>
+  <li>
+  <%= builder.call name, node.id %>
+  <%= form.label "#{name}_#{node.id}" do %>
+    <%= node.name%>
+  <% end %>
+<% end %>
+  </li>

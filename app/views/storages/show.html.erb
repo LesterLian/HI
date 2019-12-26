@@ -10,6 +10,8 @@
   <%= @storage.parent ? @storage.parent.name : '' %>
 </p>
 
-<%= link_to 'Edit', edit_storage_path(@storage) %> |
-<%= link_to 'Back', storages_path %> |
-<%= link_to 'Duplicate', new_storage_path(@storage) %>
+<p>
+  <%= link_to 'Edit', edit_storage_path(@storage) %> |
+  <%= link_to 'Back', storages_path %> |
+  <%= link_to 'Duplicate', new_storage_path(@storage) %>
+</p>

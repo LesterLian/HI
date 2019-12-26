@@ -1,0 +1,7 @@
+<input type="text" id="search_input" placeholder="Search for ...">
+<ul class="treeUL">
+  <% roots.each do |root| %>
+    <%= render :partial => "shared/nested_tree",
+      :locals => {:type => type, :name => name, :form => form, :node => root} %>
+  <% end %>
+</ul>

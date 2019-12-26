@@ -23,13 +23,8 @@
       <p><%= storage.parent ? storage.parent.name : '' %></p>
       <%= form.hidden_field :parent_id, value: storage[:parent_id] %>
     <% else %>
-      <input type="text" id="search_input" onkeyup="tree_search()" placeholder="Search for ...">
-      <ul class="treeUL">
-        <% Storage.top_level.each do |root| %>
-          <%= render :partial => "shared/nested_list",
-            :locals => {:type => :radio, :name => :parent_id, :form => form, :node => root} %>
-        <% end %>
-      </ul>
+      <%= render :partial => "shared/tree",
+            :locals => {:type => :radio, :name => :parent_id, :form => form, :roots => Storage.top_level} %>
       <input type="button" value="Reset"
         onclick="document.querySelector('input[type=radio]:checked').checked=false">
     <% end %>
@@ -38,42 +33,4 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-
-  <script>
-  <!-- "caret click event" -->
-  var toggler = document.getElementsByClassName("caret");
-  var i;
-
-  for (i = 0; i < toggler.length; i++) {
-    toggler[i].addEventListener("click", function() {
-      this.parentElement.parentElement.querySelector(".nested")
-        .classList.toggle("active");
-      this.classList.toggle("caret-down");
-    });
-  }
-
-  <!-- "search" -->
-  var labels = document.querySelectorAll(".treeUL li label");
-  function tree_search() {
-      var input, filter, lis, item, i;
-      input = document.getElementById("search_input");
-      filter = input.value.toUpperCase();
-
-      for (i = 0; i < labels.length; i++) {
-          item = labels[i];
-          if (item.children.length) {
-            item.parentElement.getElementsByTagName('ul')[0].classList.add('active')
-            // item.parentElement.querySelector(".nested").classList.remove("active");
-            // item.querySelector(".caret").classList.remove("caret-down");
-          } else {
-            if (item.textContent.toUpperCase().indexOf(filter) > -1) {
-              item.style.display = "";
-              // item.dispatchEvent(new Event('match', {bubbles: true}))
-            } else {
-              item.style.display = "none";
-            }
-          }
-      }
-  };
-  </script>
 <% end %>

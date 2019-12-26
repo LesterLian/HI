@@ -35,29 +35,15 @@
 
   <div class="field">
     <a>Storage (Choose One)</a>
-    <ul class="treeUL">
-      <% if Storage.top_level.length == 0 %>
-        <% # TODO pokayoke storage creation alert %>
-      <% end %>
-      <% Storage.top_level.each do |root| %>
-        <%= render :partial => "shared/nested_list",
-          :locals => {:type => :radio, :name => :storage_id, :form => form, :node => root} %>
-      <% end %>
-    </ul>
+    <%= render :partial => "shared/tree",
+          :locals => {:type => :radio, :name => :storage_id, :form => form, :roots => Storage.top_level} %>
     <%= link_to 'New Storage', new_storage_path %>
   </div>
 
   <div class="field">
     <a>Tags (Miltiple Selection)</a>
-    <ul class="treeUL">
-      <% if Tag.top_level.length == 0 %>
-        <% # TODO pokayoke storage creation alert %>
-      <% end %>
-      <% Tag.top_level.each do |root| %>
-        <%= render :partial => "shared/nested_list",
-          :locals => {:type => :checkbox, :name => :tags, :form => form, :node => root} %>
-      <% end %>
-    </ul>
+    <%= render :partial => "shared/tree",
+          :locals => {:type => :checkbox, :name => :tags, :form => form, :roots => Tag.top_level} %>
     <%= link_to 'New Tag', new_tag_path %>
   </div>
 
@@ -72,34 +58,6 @@
 
 
   <script>
-  <!-- "caret click event" -->
-  var toggler = document.getElementsByClassName("caret");
-  var i;
-
-  for (i = 0; i < toggler.length; i++) {
-    toggler[i].addEventListener("click", function() {
-      this.parentElement.parentElement.querySelector(".nested")
-        .classList.toggle("active");
-      this.classList.toggle("caret-down");
-    });
-  }
-
-  <!-- "search" -->
-  function tree_search() {
-      var input, filter, lis, item, i;
-      input = document.getElementById("search_input");
-      filter = input.value.toUpperCase();
-      lis = document.querySelectorAll(".treeUL li");
-      for (i = 0; i < lis.length; i++) {
-          item = lis[i].getElementsByTagName('span')[0] || lis[i];
-          if (item.textContent.toUpperCase().indexOf(filter) > -1) {
-              item.style.display = "";
-          } else {
-              item.style.display = "none";
-          }
-      }
-  };
-
   <!-- "resize image" -->
   const canvas_size = 600;
   var hidden = document.querySelector('#item_image')
