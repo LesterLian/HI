@@ -1,7 +1,5 @@
 # HI
 
-=======
-
 A simple Home Inventory Management system based on Ruby on Rails.
 
 Things you may want to cover:
