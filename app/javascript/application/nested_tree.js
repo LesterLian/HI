@@ -1,6 +1,8 @@
 
+// TODO find a better event for document
 document.addEventListener('DOMContentLoaded', () => {
   var toggler = document.getElementsByClassName("caret");
+  console.log('Got ' + toggler.length + ' span');
   var i;
   // caret click event
   for (i = 0; i < toggler.length; i++) {

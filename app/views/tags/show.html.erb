@@ -17,6 +17,24 @@
 </p>
 
 <strong>Items Associated:</strong>
-<% @tag.items.each do |item| %>
-  <p><%= item.name %></p>
-<% end %>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Count</th>
+    <th>Image</th>
+  </thead>
+  <tbody>
+    <% @tag.items.each do |item| %>
+      <!-- <p><%= item.name %></p> -->
+      <tr>
+        <td><%= item.name %></td>
+        <td><%= item.count %></td>
+        <td>
+          <% if item.image.attached? %>
+            <img src="<%= url_for item.image %>", class='thumbnail'>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

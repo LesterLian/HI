@@ -51,7 +51,11 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
-      if @item.update(item_params)
+      tmp_params = item_params
+      if tmp_params[:tags]
+        tmp_params[:tags].map! {|tag| Tag.find(tag)}
+      end
+      if @item.update(tmp_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
