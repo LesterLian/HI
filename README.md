@@ -1,28 +1,23 @@
-<<<<<<< HEAD
-# README
+# HI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+=======
+
+A simple Home Inventory Management system based on Ruby on Rails.
 
 Things you may want to cover:
 
-* Ruby version
+## Ruby version:
 
-* System dependencies
+Ruby 2.6.3
+Rails 6.0.2
+Read the Gemfile for more details.
 
-* Configuration
+## Dependencies:
 
-* Database creation
+active_storage_base64 1.1.0
 
-* Database initialization
+Configuration
 
-* How to run the test suite
+Database
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-=======
-# HI
->>>>>>> 6dc7783714069ec03125de22f0cef7b3bdbf206a
+Deployment instructions
