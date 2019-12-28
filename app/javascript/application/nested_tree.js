@@ -1,6 +1,6 @@
 
-// TODO find a better event for document
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('turbolinks:load', (e) => {
+  // console.log(e)
   var toggler = document.getElementsByClassName("caret");
   console.log('Got ' + toggler.length + ' span');
   var i;
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // tree filter
-function tree_search(labels) {
+function tree_search() {
   var filter, item, labels;
   filter = this.value.toUpperCase();
   labels = document.querySelectorAll('.treeUL label');

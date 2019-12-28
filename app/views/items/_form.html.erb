@@ -1,4 +1,5 @@
 <%= form_with(model: item, local: true) do |form| %>
+  <% item = Item.find(params[:format]) if params[:format] %>
   <% if item.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(item.errors.count, "error") %> prohibited this item from being saved:</h2>
@@ -35,16 +36,28 @@
 
   <div class="field">
     <a>Storage (Choose One)</a>
-    <%= render :partial => "shared/tree",
-          :locals => {:type => :radio, :name => :storage_id, :form => form, :roots => Storage.top_level} %>
-    <%= link_to 'New Storage', new_storage_path %>
+    <% if params[:format] %>
+      <p><%= item.storage.name %></p>
+      <%= form.hidden_field :storage_id, value: item[:storage_id] %>
+    <% else %>
+      <%= render :partial => "shared/tree",
+            :locals => {:type => :radio, :name => :storage_id, :form => form, :roots => Storage.top_level} %>
+      <%= link_to 'New Storage', new_storage_path %>
+    <% end %>
   </div>
 
   <div class="field">
     <a>Tags (Miltiple Selection)</a>
-    <%= render :partial => "shared/tree",
-          :locals => {:type => :checkbox, :name => :tags, :form => form, :roots => Tag.top_level} %>
-    <%= link_to 'New Tag', new_tag_path %>
+    <% if params[:format] %>
+      <% item.tags.each do |tag| %>
+        <p><%= tag.name %></p>
+        <%= form.hidden_field :tags, value: tag.id, multiple: true %>
+      <% end %>
+    <% else %>
+      <%= render :partial => "shared/tree",
+            :locals => {:type => :checkbox, :name => :tags, :form => form, :roots => Tag.top_level} %>
+      <%= link_to 'New Tag', new_tag_path %>
+    <% end %>
   </div>
 
   <div class="field" style="display: none">

@@ -41,6 +41,7 @@ class ItemsController < ApplicationController
         format.html { redirect_to @item, notice: 'Item was successfully created.' }
         format.json { render :show, status: :created, location: @item }
       else
+        # TODO error when duplicate
         format.html { render :new }
         format.json { render json: @item.errors, status: :unprocessable_entity }
       end
@@ -54,6 +55,10 @@ class ItemsController < ApplicationController
       tmp_params = item_params
       if tmp_params[:tags]
         tmp_params[:tags].map! {|tag| Tag.find(tag)}
+      end
+      if params[:item][:image] =~ /data:image\/\w+;base64,.+/
+        @item.image.purge
+        @item.image.attach(data: params[:item][:image])
       end
       if @item.update(tmp_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
