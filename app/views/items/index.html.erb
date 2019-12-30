@@ -18,7 +18,7 @@
   </thead>
 
   <tbody>
-    <% @items.each do |item| %>
+    <% @items.last(20).each do |item| %>
       <tr>
         <td><%= item.name %></td>
         <td><%= item.count %></td>

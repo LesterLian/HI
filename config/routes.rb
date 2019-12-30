@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   root 'index#index'
   get '/public/:page' => 'application#access_public'
   scope "(:locale)", locale: /#{I18n.available_locales.join("|")}/ do
-    get '/' => 'items#index'
+    get '/' => 'index#index'
     resources :items
     resources :storages
     resources :tags

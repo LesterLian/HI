@@ -25,15 +25,6 @@ class TagsController < ApplicationController
   # POST /tags
   # POST /tags.json
   def create
-    # puts 'here'
-    # puts tag_params
-    # if tag_params[:parent_id] == ''
-    #   tag_params[:parent_id] = nil
-    # else
-    #   tag_params[:parent_id] = Tag.find(tag_params[:parent])
-    # end
-    # puts tag_params
-    # puts 'here'
     @tag = Tag.new(tag_params)
 
     respond_to do |format|

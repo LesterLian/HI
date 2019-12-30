@@ -1,3 +1,4 @@
+<%= javascript_pack_tag 'item' %>
 <%= form_with(model: item, local: true) do |form| %>
   <% item = Item.find(params[:format]) if params[:format] %>
   <% if item.errors.any? %>
@@ -68,44 +69,4 @@
   <div class="actions">
     <%= form.submit %>
   </div>
-
-
-  <script>
-  <!-- "resize image" -->
-  const canvas_size = 600;
-  var hidden = document.querySelector('#item_image')
-  var label = document.querySelector('#file_label')
-  document.querySelector('input[type=file]').addEventListener('change', function(e) {
-    var file = e.target.files[0];
-
-    if(file.type.match(/image.*/)) {
-      console.log('An image has been loaded');
-
-      // Load the image
-      var reader = new FileReader();
-      reader.onload = function (readerEvent) {
-        var image = new Image();
-        image.onload = function (imageEvent) {
-          console.log('image event')
-          // Resize the image
-          var canvas = document.createElement('canvas'),
-              size = Math.min(image.width, image.height)
-          canvas.width = canvas_size;
-          canvas.height = canvas_size;
-          // TODO device check
-          canvas.getContext('2d').rotate(Math.PI/2);
-          canvas.getContext('2d').drawImage(image, 0, 0, size, size, //crop
-            0, -canvas_size, canvas_size, canvas_size); //resize
-
-          console.log(canvas.toDataURL('image/jpeg'))
-          hidden.value = canvas.toDataURL('image/jpeg');
-          e.target.value = '';
-          label.textContent = file.name
-        }
-        image.src = readerEvent.target.result;
-      }
-      reader.readAsDataURL(file);
-    }
-  });
-  </script>
 <% end %>

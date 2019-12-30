@@ -56,6 +56,7 @@ class ItemsController < ApplicationController
       if tmp_params[:tags]
         tmp_params[:tags].map! {|tag| Tag.find(tag)}
       end
+      # TODO update with other information doesn't work
       if params[:item][:image] =~ /data:image\/\w+;base64,.+/
         @item.image.purge
         @item.image.attach(data: params[:item][:image])

@@ -17,7 +17,23 @@
 </p>
 
 <strong>Items Inside:</strong>
-<% @storage.items.each do |item| %>
-  <!-- <p><%= item.name %></p> -->
-  <p><%= link_to item.name, item_path(item) %></p>
-<% end %>
+<table>
+  <thead>
+    <th>Name</th>
+    <th>Count</th>
+    <th>Image</th>
+  </thead>
+  <tbody>
+    <% @storage.items.each do |item| %>
+      <tr>
+        <td><%= link_to item.name, item_path(item) %></td>
+        <td><%= item.count %></td>
+        <td>
+          <% if item.image.attached? %>
+            <img src="<%= url_for item.image %>", class='thumbnail'>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
