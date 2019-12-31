@@ -4,6 +4,9 @@ import EXIF from 'exif-js'
 document.addEventListener('turbolinks:load', (e) => {
   const canvas_size = 600;
   var hidden = document.querySelector('#item_image')
+  if (!hidden) {
+    return;
+  }
   var label = document.querySelector('#file_label')
   document.querySelector('#item_choose_image').addEventListener('change', function(e) {
     var file = this.files[0];

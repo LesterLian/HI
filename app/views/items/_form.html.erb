@@ -1,4 +1,3 @@
-<%= javascript_pack_tag 'item' %>
 <%= form_with(model: item, local: true) do |form| %>
   <% item = Item.find(params[:format]) if params[:format] %>
   <% if item.errors.any? %>
