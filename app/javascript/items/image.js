@@ -31,8 +31,12 @@ document.addEventListener('turbolinks:load', (e) => {
           var promise = new Promise(function(resolve, reject) {
               EXIF.getData(file, function () {
                   var tag = EXIF.getTag(this, 'Orientation');
-                  console.log('in: '+tag.toString());
-                  resolve(tag);
+                  if (tag) {
+                    console.log('in: '+tag.toString());
+                    resolve(tag);
+                  } else {
+                    resolve(0);
+                  }
               });
           });
           rotation = await promise
