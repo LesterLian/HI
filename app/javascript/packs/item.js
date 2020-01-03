@@ -3,4 +3,6 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("items/image")
+// Can't use this file because it can't be added to <head> therefore won't work when jump
+// from other pages.
+// require("items/image")
