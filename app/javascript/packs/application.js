@@ -9,6 +9,7 @@ require("@rails/activestorage").start()
 require("channels")
 
 require("applications/nested_tree")
+require("applications/index_mutable_link")
 require("items/image")
 
 // require('test/image')

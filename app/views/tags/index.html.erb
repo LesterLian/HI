@@ -14,20 +14,3 @@
 </p>
 
 <p><%= link_to 'New Tag', new_tag_path %></p>
-
-<script>
-<!-- "Change link for selected item" -->
-var links = document.querySelectorAll('.mutable_link');
-document.querySelector('form').addEventListener('input', function(e) {
-  links.forEach(function(link) {
-    strs = link.href.split('/');
-    // TODO better way to replace id in link
-    link.idx ? null : link.idx = strs.indexOf('0');
-    strs[link.idx] = e.srcElement.value;
-    link.href = strs.join('/');
-    // link.style.display = ''
-    link.classList.remove('mutable_link');
-  });
-
-});
-</script>
