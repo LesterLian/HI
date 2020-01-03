@@ -17,18 +17,23 @@ document.addEventListener('turbolinks:load', (e) => {
     });
   }
   // tree filter
-  var input = document.getElementById("search_input");
-  if (input) {
-    input.addEventListener('keyup', tree_search);
+  var input = document.querySelectorAll("[id^=search_input]");
+  for (var i=0; i<input.length; i++) {
+    input[i].addEventListener('keyup', tree_search);
   }
 });
 
 
 // tree filter
-function tree_search() {
+function tree_search(e) {
   var filter, item, labels;
   filter = this.value.toUpperCase();
-  labels = document.querySelectorAll('.treeUL label');
+  if (e.target.id) {
+    labels = document.querySelectorAll('#' + e.target.id + '+.treeUL label');
+  } else {
+    labels = document.querySelectorAll('.treeUL label');
+  }
+
 
   for (i = 0; i < labels.length; i++) {
     item = labels[i];

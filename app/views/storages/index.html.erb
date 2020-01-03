@@ -3,8 +3,8 @@
 <h1>Storages</h1>
 
 <%= form_with(model: @top_levels.first, local: true) do |form| %>
-<%= render :partial => "shared/tree",
-      :locals => {:type => :radio, :name => :parent_id, :form => form, :roots => @top_levels} %>
+  <%= render :partial => "shared/tree",
+        :locals => {:type => :radio, :name => :parent_id, :form => form, :roots => @top_levels} %>
 <% end %>
 
 <p>

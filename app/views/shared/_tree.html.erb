@@ -1,4 +1,7 @@
-<input type="text" id="search_input" placeholder="Search for ...">
+<input type="text"
+  id="search_input<%= local_assigns[:id] ? "_#{local_assigns[:id]}": ''%>" 
+  placeholder="Search for ..."
+>
 <ul class="treeUL">
   <% roots.each do |root| %>
     <%= render :partial => "shared/nested_tree",
