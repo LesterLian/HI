@@ -1,0 +1,69 @@
+@import 'w3';
+@import 'w3_turmeric';
+
+// Tree style
+.treeUL, .treeUL ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+
+  li label {
+    @extend .w3-card, .w3-theme-l1 ;
+    // STYLE 4
+    padding-right: 4px;
+  }
+}
+
+.treeUL {
+  // STYLE 4
+  margin-top: 4px;
+}
+
+.treeUL ul {
+  // STYLE 32
+  padding-left: 32px;
+}
+
+// Checked style
+.treeUL {
+  input[type=checkbox], input[type=radio] {
+    display: none;
+  }
+  input[type=checkbox]:checked, input[type=radio]:checked {
+    + label {
+      @extend .w3-theme-d4 ;
+    }
+  }
+}
+
+// Collapse/expand
+.nested>ul {
+  display: none;
+}
+
+.active>ul {
+  display: block;
+}
+
+// Arrow
+.caret {
+  cursor: pointer;
+  -webkit-user-select: none; /* Safari 3.1+ */
+  -moz-user-select: none; /* Firefox 2+ */
+  -ms-user-select: none; /* IE 10+ */
+  user-select: none;
+}
+
+.nested>label>.caret::before {
+  content: "\25ba";
+  // STYLE black arrow
+  color: black;
+  display: inline-block;
+  margin-right: 6px;
+}
+
+.active>label>.caret::before {
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari */
+  transform: rotate(90deg);
+}

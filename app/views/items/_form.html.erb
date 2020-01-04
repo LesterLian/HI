@@ -28,14 +28,14 @@
   </div>
 
   <div class="field">
-    <%= form.label 'choose_image', class: 'file_button' %>
-    <a id='file_label'>No file chosen...</a>
+    <%= form.label 'choose_image', class: 'link_button' %>
+    <label id='file_label'>No file chosen...</label>
     <%= form.hidden_field :image, value: '' %>
     <%= form.file_field 'choose_image', accept: "image/*", capture: "camera", style: 'display: none' %>
   </div>
 
   <div class="field">
-    <a>Storage (Choose One)</a>
+    <label>Storage (Choose One)</label>
     <% if params[:format] %>
       <p><%= item.storage.name %></p>
       <%= form.hidden_field :storage_id, value: item[:storage_id] %>
@@ -47,7 +47,7 @@
   </div>
 
   <div class="field">
-    <a>Tags (Miltiple Selection)</a>
+    <label>Tags (Miltiple Selection)</label>
     <% if params[:format] %>
       <% item.tags.each do |tag| %>
         <p><%= tag.name %></p>

@@ -1,0 +1,22 @@
+// Place all the styles related to the Index controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+// Add a black background color to the top navigation
+@import 'w3';
+@import 'w3_turmeric';
+
+.topnav {
+  @extend .w3-top, .w3-bar, .w3-black ;
+  overflow: hidden;
+}
+
+// Style the links inside the navigation bar
+.topnav a {
+  @extend .w3-bar-item, .w3-button, .w3-mobile ;
+}
+
+// Add padding below for the fixed top bar
+.topnav+* {
+  padding-top: 4%;
+}

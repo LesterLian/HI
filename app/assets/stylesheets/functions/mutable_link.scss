@@ -1,0 +1,12 @@
+@import 'w3';
+@import 'w3_turmeric';
+
+.link_button {
+  @extend .w3-button, .w3-theme ;
+  // STYLE link button padding
+  padding: 0px 16px;
+}
+
+.mutable_link {
+  display: none
+}

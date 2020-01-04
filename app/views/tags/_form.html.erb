@@ -18,7 +18,7 @@
   </div>
 
   <div class="field">
-    <p>Parent (Choose One)</p>
+    <label>Parent (Choose One)</label>
     <% if params[:format] %>
       <p><%= tag.parent ? tag.parent.name : '' %></p>
       <%= form.hidden_field :parent_id, value: tag[:parent_id] %>

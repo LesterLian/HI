@@ -1,0 +1,50 @@
+@import 'w3';
+@import 'w3_turmeric';
+
+label {
+  font-size: 6vw;
+  display: inline-block ;
+}
+
+h1 {
+  @extend .w3-text-theme ;
+  font-size: 6vw;
+}
+
+input {
+  @extend .w3-input ;
+}
+
+table {
+  @extend .w3-centered, .w3-responsive, .w3-table ;
+  tr:nth-child(even) {   @extend .w3-theme-l4 ; }
+  th {
+    @extend .w3-text-theme, .w3-theme-l4 ;
+    // STYLE fit a[href] padding
+    padding-bottom: 4px;
+  }
+  a[href] { display: block; }
+}
+
+a[href] {
+  @extend .w3-card, .w3-padding-small ;
+  font-size: 4vw;
+  text-decoration: none;
+}
+
+.field, form[action] {
+  @extend .w3-container ;
+}
+
+
+
+// Desktop
+@media screen and (min-width:600px) {
+  label {
+    font-size: 3vw;
+  }
+
+  a[href] {
+    font-size: 3vw;
+  }
+}

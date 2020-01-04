@@ -18,8 +18,9 @@
   </div>
 
   <div class="field">
-    <p>Parent (Choose One)</p>
+    <label>Parent (Choose One)</label>
     <% if params[:format] %>
+    <% #TODO style for parent %>
       <p><%= storage.parent ? storage.parent.name : '' %></p>
       <%= form.hidden_field :parent_id, value: storage[:parent_id] %>
     <% else %>
