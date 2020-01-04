@@ -4,7 +4,12 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    @items = Item.all
+    if page_params
+      @items = Item.limit(20).offset(20*page_params.to_i)
+    else
+      @items = Item.all
+    end
+
   end
 
   # GET /items/1
@@ -91,5 +96,8 @@ class ItemsController < ApplicationController
     def item_params
       params.require(:item).permit(:name, :count, :price, :storage_id, :time_in, :time_out,
         :tags => [])
+    end
+    def page_params
+      params.fetch(:page, '0')
     end
 end

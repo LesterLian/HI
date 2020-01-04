@@ -1,9 +1,33 @@
 // Place all the styles related to the Items controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+@import 'w3';
+@import 'w3_turmeric';
 
 .thumbnail {
   // STYLE 100px
   max-height: 100px;
   max-width: 100%;
+}
+
+.page_nav {
+  @extend .w3-row, .w3-center ;
+  div, .page_nav_number {
+    padding: 8px 16px;
+  }
+  .page_nav_number {
+    @extend .w3-container, .w3-rest ;
+    a {
+      font-size: 4vw;
+      display: block;
+    }
+  }
+  div {
+    @extend .w3-container, .w3-third ;
+    // width: 40%;
+    a[href] {
+      display: block;
+    }
+  }
+
 }
