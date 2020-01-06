@@ -1,5 +1,5 @@
 // Crop image to square, resize to 600 and rotate appropiately before upload.
-import EXIF from 'exif-js'
+import EXIF from 'exif-js' // TODO file.exifdata ?
 
 document.addEventListener('turbolinks:load', (e) => {
   const canvas_size = 600;
