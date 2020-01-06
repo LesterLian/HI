@@ -29,11 +29,7 @@ class ItemsController < ApplicationController
   # POST /items
   # POST /items.json
   def create
-    tmp_params = item_params
-    if tmp_params[:tags]
-      tmp_params[:tags].map! {|tag| Tag.find(tag)}
-    end
-    @item = Item.new(tmp_params)
+    @item = Item.new(item_params)
     if params[:item][:image] =~ /data:image\/\w+;base64,.+/
       @item.image.attach(data: params[:item][:image])
     end
@@ -57,16 +53,12 @@ class ItemsController < ApplicationController
   # PATCH/PUT /items/1.json
   def update
     respond_to do |format|
-      tmp_params = item_params
-      if tmp_params[:tags]
-        tmp_params[:tags].map! {|tag| Tag.find(tag)}
-      end
       # TODO update with other information doesn't work
       if params[:item][:image] =~ /data:image\/\w+;base64,.+/
         @item.image.purge
         @item.image.attach(data: params[:item][:image])
       end
-      if @item.update(tmp_params)
+      if @item.update(item_params)
         format.html { redirect_to @item, notice: 'Item was successfully updated.' }
         format.json { render :show, status: :ok, location: @item }
       else
@@ -95,7 +87,7 @@ class ItemsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def item_params
       params.require(:item).permit(:name, :count, :price, :storage_id, :time_in, :time_out,
-        :tags => [])
+        tag_ids: [])
     end
     def page_params
       params.fetch(:page, '0')

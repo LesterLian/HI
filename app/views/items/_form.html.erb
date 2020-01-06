@@ -55,7 +55,7 @@
       <% end %>
     <% else %>
       <%= render :partial => "shared/tree",
-            :locals => {:id => 'tag', :type => :checkbox, :name => :tags, :form => form, :roots => Tag.top_level} %>
+            :locals => {:id => 'tag', :type => :checkbox, :name => :tag_ids, :form => form, :roots => Tag.top_level} %>
       <%= link_to 'New Tag', new_tag_path %>
     <% end %>
   </div>

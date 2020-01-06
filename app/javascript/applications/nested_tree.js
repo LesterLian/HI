@@ -21,6 +21,11 @@ document.addEventListener('turbolinks:load', (e) => {
   for (var i=0; i<input.length; i++) {
     input[i].addEventListener('keyup', tree_search);
   }
+  // Create event at each passed in value
+  checked = document.querySelectorAll('input:checked');
+  checked.forEach( (current, i, l)=>{
+    current.dispatchEvent(new Event('match', {bubbles: true}));
+  });
 });
 
 
