@@ -12,7 +12,7 @@ require("applications/nested_tree")
 require("applications/index_mutable_link")
 require("items/image")
 
-// require('test/image')
+// require('applications/full_screen')
 
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
