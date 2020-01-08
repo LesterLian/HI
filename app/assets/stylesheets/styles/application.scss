@@ -1,6 +1,28 @@
 @import 'w3';
 @import 'w3_turmeric';
 
+// Navigation
+.topnav {
+  @extend .w3-top, .w3-bar, .w3-black ;
+  overflow: hidden;
+}
+
+// Style the links inside the navigation bar
+.topnav a {
+  @extend .w3-bar-item, .w3-button, .w3-mobile ;
+}
+
+// Add padding below for the fixed top bar
+.topnav+* {
+
+}
+
+// Bottom space
+body {
+  padding-top: 8%;
+  padding-bottom: 4%;
+}
+
 label {
   font-size: 6vw;
   display: inline-block ;
