@@ -4,10 +4,16 @@ class ItemsController < ApplicationController
   # GET /items
   # GET /items.json
   def index
-    if page_params
-      @items = Item.limit(20).offset(20*page_params.to_i)
+    if search_params
+      all_items = Item.where "name like ?", "%#{search_params}%"
     else
-      @items = Item.all
+      all_items = Item.all
+    end
+    @max_page = (all_items.size + 19) / 20
+    if page_params
+      @items = all_items.limit(20).offset(20*(page_params.to_i-1))
+    else
+      @items = all_items
     end
 
   end
@@ -81,6 +87,9 @@ class ItemsController < ApplicationController
         tag_ids: [], image: :data)
     end
     def page_params
-      params.fetch(:page, '0')
+      params.fetch(:page, '1')
+    end
+    def search_params
+      params.fetch(:search, nil)
     end
 end

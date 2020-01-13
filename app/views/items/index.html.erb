@@ -2,6 +2,10 @@
 
 <h1>Items</h1>
 
+<%= form_tag items_path, method: :get do %>
+  <%= search_field_tag 'search', nil, placeholder: 'Enter item name here', action: items_path  %>
+<% end %>
+
 <table>
   <thead>
     <tr>
@@ -41,13 +45,15 @@
 </table>
 
 <div class="page_nav">
-  <% page = params[:page].to_i %>
-  <div><%= link_to 'Prev', items_path(:page => "#{page-1}") %></div>
-  <div class="page_nav_number">
-    <a><%=  page %></a>
+  <% page = [1,params[:page].to_i].max %>
+  <div>
+    <%= link_to 'Prev', items_path(params.merge({:page => "#{[1,page-1].max}"}).permit(:search, :page)) %>
   </div>
-  <div class="">
-    <%= link_to 'Next', items_path(:page => "#{page+1}") %>
+  <div class="page_nav_number">
+    <a><%= "#{page}/#{@max_page}" %></a>
+  </div>
+  <div>
+    <%= link_to 'Next', items_path(params.merge({:page => "#{[page+1,@max_page].min}"}).permit(:search, :page)) %>
   </div>
 
 </div>
