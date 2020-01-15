@@ -1,6 +1,10 @@
 <% builder = -> (*args) { %>
   <% if type == :checkbox %>
-    <% form.check_box args[0], { :multiple => true, id: "#{form.object_name}_#{args[0]}_#{args[1]}" }, args[1], nil %>
+    <% if form.instance_variable_defined? :@checked_list %>
+      <% form.check_box args[0], { multiple: true, id: "#{args[0]}_#{args[1]}", checked: form.instance_variable_get(:@checked_list).fetch(:tag_filters, []).include?(args[1].to_s) }, args[1], nil %>
+    <% else %>
+      <% form.check_box args[0], { multiple: true, id: "#{form.object_name}_#{args[0]}_#{args[1]}" }, args[1], nil %>
+    <% end %>
   <% else %>
     <% form.radio_button *args %>
   <% end %>

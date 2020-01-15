@@ -5,4 +5,12 @@ class Item < ApplicationRecord
 
   validates :name, :image, presence: true
   validates :count, :price, numericality: { only_integer: true }
+
+  scope :has_tags, -> (tags) {
+    joins(:tags)
+    .where(tags: {id: tags})
+    .select("items.*, count(tags.id) as tags")
+    .group(:id)
+    .having("tags >= ?", tags.length)
+  }
 end

@@ -1,10 +1,21 @@
 <p id="notice"><%= notice %></p>
 
 <h1>Items</h1>
+<%= form_with url: items_path, method: :get, local: true do |form| %>
 
-<%= form_tag items_path, method: :get do %>
-  <%= search_field_tag 'search', nil, placeholder: 'Enter item name here', action: items_path  %>
+  <% form.instance_variable_set :@checked_list, params.permit(:search, tag_filters: []) %>
+  <%= form.search_field :name, placeholder: 'Enter item name here', value: params[:name] %>
+  <ul class="treeUL">
+    <li class='nested'>
+      <label><span class="caret">Tag filters</span></label>
+      <%= form.submit 'apply', name: nil %>
+      <%= render :partial => "shared/tree",
+            :locals => {:type => :checkbox, :name => :tag_filters, :form => form, :roots => Tag.top_level} %>
+    </li>
+  </ul>
+
 <% end %>
+
 
 <table>
   <thead>
@@ -45,15 +56,16 @@
 </table>
 
 <div class="page_nav">
-  <% page = [1,params[:page].to_i].max %>
+  <% page = params.fetch(:page, "1").to_i %>
+  <% params.delete :search if params[:search] == '' %>
   <div>
-    <%= link_to 'Prev', items_path(params.merge({:page => "#{[1,page-1].max}"}).permit(:search, :page)) %>
+    <%= link_to 'Prev', items_path(params.merge({:page => "#{[1,page-1].max}"}).permit(:search, :page, :tag_filters => [])) %>
   </div>
   <div class="page_nav_number">
     <a><%= "#{page}/#{@max_page}" %></a>
   </div>
   <div>
-    <%= link_to 'Next', items_path(params.merge({:page => "#{[page+1,@max_page].min}"}).permit(:search, :page)) %>
+    <%= link_to 'Next', items_path(params.merge({:page => "#{[page+1,@max_page].min}"}).permit(:search, :page, :tag_filters => [])) %>
   </div>
 
 </div>

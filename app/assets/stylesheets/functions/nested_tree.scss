@@ -37,12 +37,16 @@
 }
 
 // Collapse/expand
-.nested>ul {
-  display: none;
+.nested> {
+  ul,input {
+    display: none;
+  }
 }
 
-.active>ul {
-  display: block;
+.active> {
+  ul,input {
+    display: block;
+  }
 }
 
 // Arrow
