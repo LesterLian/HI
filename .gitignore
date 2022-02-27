@@ -1,0 +1,6 @@
+node_modules
+db
+tmp
+log
+public/packs
+storage
